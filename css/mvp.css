@@ -37,6 +37,69 @@ section{
     z-index: 100;
     padding-left: 10px;
 }
+/*
+.cross-button {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .horizontal-line,
+  .vertical-line {
+    position: absolute;
+    top: 50%;
+    left: 350%;
+    width: 60%;
+    height: 8px;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+  }
+  
+  .vertical-line {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  
+  .cross-button:focus .horizontal-line,
+  .cross-button:hover .horizontal-line,
+  .cross-button:focus .vertical-line,
+  .cross-button:hover .vertical-line {
+    background-color: #999;
+  }
+*/
+
+.cross {
+    position: relative;
+    width: 10%;
+    padding-bottom: 10%;
+    max-width: 70px;
+    max-height: 70px;
+  }
+  
+  .cross:before,
+  .cross:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 350%;
+    width: 60%;
+    height: 8px;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+  }
+  
+  .cross:before {
+    transform: translate(-50%, -50%);
+  }
+  
+  .cross:after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  .cross:hover{
+    background-color: #999;
+  }
 
 .arrow {
     position: absolute;
@@ -399,7 +462,6 @@ a b,
 a em,
 a i,
 a strong,
-button,
 input[type="submit"] {
     border-radius: var(--border-radius);
     display: inline-block;
@@ -410,25 +472,14 @@ input[type="submit"] {
     padding: 1rem 2rem;
 }
 
-button,
+
 input[type="submit"] {
     font-family: var(--font-family);
 }
 
-button:active,
-input[type="submit"]:active {
-    filter: brightness(var(--active-brightness));
-}
-
-button:hover,
-input[type="submit"]:hover {
-    cursor: pointer;
-    filter: brightness(var(--hover-brightness));
-}
 
 a b,
 a strong,
-button,
 input[type="submit"] {
     background-color: var(--color-link);
     border: 2px solid var(--color-link);
@@ -463,7 +514,7 @@ figure figcaption {
 }
 
 /* Forms */
-button:disabled,
+
 input:disabled {
     background: var(--color-bg-secondary);
     border-color: var(--color-bg-secondary);
@@ -471,7 +522,7 @@ input:disabled {
     cursor: not-allowed;
 }
 
-button[disabled]:hover,
+
 input[type="submit"][disabled]:hover {
     filter: none;
 }
