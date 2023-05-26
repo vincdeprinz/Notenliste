@@ -64,3 +64,51 @@ function change(){
 
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  var ausloeser = document.getElementById('ausloeser');
+
+
+  ausloeser.addEventListener('click', function() {
+    var createFach = document.getElementById('createFach');
+    createFach.style.display = "block";
+    var x = document.getElementById("bit");
+    x.style.display = "none";
+    
+  });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var ausloeser = document.getElementById('fachSubmit');
+
+    fachSubmit.addEventListener('click', function() {
+      var fach = document.getElementById("fach").value;
+
+      var neuerButton = document.createElement('button');
+      neuerButton.textContent = fach;
+      neuerButton.className = 'button-28';
+      neuerButton.id = 'btn2';
+
+      var createFach = document.getElementById('createFach');
+      createFach.style.display = "none";
+      var x = document.getElementById("bit");
+      x.style.display = "block";
+      
+      document.getElementById('fach').value = "";
+
+      neuerButton.addEventListener('click', function(){
+        var x = document.getElementById("bit");
+        document.getElementById('titel').textContent = 'Deutsch';
+        if(x.style.display === "none"){
+            x.style.display = "block";
+        } else{
+            x.style.display = "none";
+        }
+        y = true;
+      });
+
+      var container = document.getElementById('bit');
+      container.appendChild(neuerButton);
+  });
+});
