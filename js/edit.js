@@ -10,18 +10,16 @@ window.addEventListener('DOMContentLoaded', function() {
   loescheFach.style.display = "none";
 
 
+    var gespeicherteButtons = localStorage.getItem('gespeicherteButtons');
+  var buttonsObjekt = gespeicherteButtons ? JSON.parse(gespeicherteButtons) : {};
 
-  var gespeicherteButtons = localStorage.getItem('gespeicherteButtons');
-  var buttonsArray = gespeicherteButtons ? JSON.parse(gespeicherteButtons) : [];
-
-  buttonsArray.forEach(function(fach) {
-    var gespeicherteWerte = localStorage.getItem('faecher');
-    var fach = JSON.parse(gespeicherteWerte);
+  for (var fach in buttonsObjekt) {
+    var buttonInfo = buttonsObjekt[fach];
 
       var neuerButton = document.createElement('button');
-      neuerButton.textContent = fach;
+      neuerButton.textContent = buttonInfo.text;
       neuerButton.className = 'button-28';
-      neuerButton.id = fach;
+      neuerButton.id = buttonInfo.id;
 
       var createFach = document.getElementById('createFach');
       createFach.style.display = "none";
@@ -30,13 +28,13 @@ window.addEventListener('DOMContentLoaded', function() {
       
       document.getElementById('fach').value = "";
 
-      neuerButton.addEventListener('click', function(){
+      neuerButton.addEventListener('click', function(event){
         var x = document.getElementById("bit");
         var erstelleFach = document.getElementById("erstelleFach");
         var erstelleNote = document.getElementById("erstelleNote");
         var loescheFach = document.getElementById("loescheFach");
-
-        document.getElementById('titel').textContent = fach;
+        var gedrueckteButtonId = event.target.id;
+        document.getElementById('titel').textContent = gedrueckteButtonId;
             x.style.display = "none";
             y = true;
         erstelleFach.style.display = "none";
@@ -46,8 +44,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
       var container = document.getElementById('bit');
       container.appendChild(neuerButton);
+    }
   });
-});
+
 
 function save(){
     var Item = document.getElementById("input").value;
@@ -131,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
+//Buttons erstellen
 document.addEventListener('DOMContentLoaded', function() {
     var fachSubmit = document.getElementById("fachSubmit");
     fachSubmit.addEventListener('click', function() {
@@ -149,13 +148,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
       document.getElementById('fach').value = "";
 
-      neuerButton.addEventListener('click', function(){
+      neuerButton.addEventListener('click', function(event){
         var x = document.getElementById("bit");
         var erstelleFach = document.getElementById("erstelleFach");
         var erstelleNote = document.getElementById("erstelleNote");
         var loescheFach = document.getElementById("loescheFach");
-
-        document.getElementById('titel').textContent = fach;
+        var gedrueckteButtonId = event.target.id;
+        document.getElementById('titel').textContent = gedrueckteButtonId;
             x.style.display = "none";
             y = true;
         erstelleFach.style.display = "none";
@@ -167,14 +166,14 @@ document.addEventListener('DOMContentLoaded', function() {
       container.appendChild(neuerButton);
 
       var gespeicherteButtons = localStorage.getItem('gespeicherteButtons');
-      localStorage.setItem('faecher', JSON.stringify(fach));
-      var buttonsArray = gespeicherteButtons ? JSON.parse(gespeicherteButtons) : [];
-     buttonsArray.push(fach); // Hier die ID des Buttons speichern
-     localStorage.setItem('gespeicherteButtons', JSON.stringify(buttonsArray));
+      var buttonsObjekt = gespeicherteButtons ? JSON.parse(gespeicherteButtons) : {};
+      buttonsObjekt[fach] = { id: fach, text: fach };
+      localStorage.setItem('gespeicherteButtons', JSON.stringify(buttonsObjekt));
+    
   });
 });
 
-
+//Button löschen
 document.addEventListener('DOMContentLoaded', function() {
   var loescheFach = document.getElementById('loescheFach');
 
@@ -194,9 +193,22 @@ loescheFach.addEventListener('click', function() {
     erstelleNote.style.display = "none";
     loescheFach.style.display = "none";
     erstelleFach.style.display = "block";
-  if(button){
-    button.parentNode.removeChild(button);
+
+  var gespeicherteButtons = localStorage.getItem('gespeicherteButtons');
+  var buttonsObjekt = gespeicherteButtons ? JSON.parse(gespeicherteButtons) : {};
+
+  if (buttonsObjekt.hasOwnProperty(buttonId)) {
+    delete buttonsObjekt[buttonId];
+    localStorage.setItem('gespeicherteButtons', JSON.stringify(buttonsObjekt));
+    // Button aus dem DOM entfernen
+    var buttonElement = document.getElementById(buttonId);
+    if (buttonElement) {
+      buttonElement.remove();
+    }
   }
+
+
+
 
   document.getElementById('titel').textContent = "KBW";
 });
